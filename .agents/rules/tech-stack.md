@@ -28,3 +28,12 @@
 本项目强制使用 Biome (`@biomejs/biome`) 作为唯一的代码格式化和代码质量检查工具。
 - **禁用 Prettier / ESLint**：绝不要在项目中添加或建议使用 ESLint 或 Prettier，这会与 Biome 冲突。
 - **自动修复**：编写完代码后，AI 应确保代码符合 Biome 规则。用户也可通过 `bun run lint:fix` 修正代码风格。
+
+## 5. 环境变量与配置规范
+- **强类型校验**：应用启动时，必须使用 ElysiaJS 内置的 Typebox (`t`) 对 `process.env` 中的所有关键环境变量进行运行时强类型校验。
+- **集中管理**：环境变量的验证和默认值应集中在一处配置，杜绝在业务代码中随意使用未校验的 `process.env.XXX`。
+
+## 6. 测试规范
+- **测试框架**：强制使用 `bun test`。
+- **测试文件位置**：采用**就近维护**原则。测试文件必须与被测试的源码文件放在同一级目录下，并命名为 `*.test.ts` (例如 `user.service.test.ts` 必须放在 `src/modules/user/` 目录下)。
+- **Mocking**：使用 `bun test` 内置的 `mock` 功能或依赖注入来隔离 Prisma 和外部接口调用。
