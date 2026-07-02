@@ -1,0 +1,19 @@
+# Cursor / AI Agent Rules
+
+本项目是一个基于 Bun + ElysiaJS + Prisma + Biome 的后端应用。
+所有的 AI 代码辅助开发必须遵循本目录 `.agents/rules/` 下的详细规则文件。
+
+## 规则入口
+
+- **技术栈规范**：请参阅 [.agents/rules/tech-stack.md](./.agents/rules/tech-stack.md)
+  - 核心要求：优先使用 Bun 原生 API、Elysia 类型推导、Prisma 单例复用、Biome 代码检查。
+- **架构与编码规范**：请参阅 [.agents/rules/architecture.md](./.agents/rules/architecture.md)
+  - 核心要求：Controller-Service-Schema 三层分离、严格的命名及职责划分。
+- **AI 行为规范**：请参阅 [.agents/rules/ai-behavior.md](./.agents/rules/ai-behavior.md)
+  - 核心要求：不确定即提问、最少代码修改、TDD 测试驱动、Angular 规范的中文 Git Commit。
+
+## 必须遵守的全局原则
+- 请使用中文与用户对话。
+- 采用最简洁的话术回答，避免不必要的 token 消耗。
+- Don't assume. Don't hide confusion. Surface tradeoffs. (想清楚再写代码，如果有歧义请提问)。
+- Surgical Changes (最少修改原则，不碰与当前任务无关的代码)。
