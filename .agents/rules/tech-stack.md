@@ -27,6 +27,7 @@
 
 本项目强制使用 Biome (`@biomejs/biome`) 作为唯一的代码格式化和代码质量检查工具。
 - **禁用 Prettier / ESLint**：绝不要在项目中添加或建议使用 ESLint 或 Prettier，这会与 Biome 冲突。
+- **严格类型与空值处理**：严格遵守 Biome 的规范，绝对禁止使用 `any` 类型，也绝对禁止使用非空断言操作符 `!`。对于可能为空的值，必须使用类型收窄（Type Narrowing，例如 `if (!val) throw new Error(...)`）或可选链（Optional Chaining，`?.`）进行安全访问。
 - **自动修复**：编写完代码后，AI 应确保代码符合 Biome 规则。用户也可通过 `bun run lint:fix` 修正代码风格。
 
 ## 5. 环境变量与配置规范
