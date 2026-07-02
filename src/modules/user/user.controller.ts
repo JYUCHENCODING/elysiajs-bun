@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { success } from "../../common/response";
+import { success } from "@/common/response";
 import { UserSchema } from "./user.schema";
 import { UserService } from "./user.service";
 

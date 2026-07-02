@@ -1,4 +1,4 @@
-import { CustomError } from "../../common/plugins/error-handler";
+import { CustomError } from "@/common/plugins/error-handler";
 
 export const UserService = {
 	async login(username: string, password: string) {
