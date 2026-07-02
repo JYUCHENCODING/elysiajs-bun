@@ -17,6 +17,11 @@ export const errorHandler = new Elysia({ name: "error-handler" }).onError(
 		if (error instanceof CustomError) {
 			return fail(error.code, error.message);
 		}
-		return fail(-1, error.message || "Internal Server Error");
+		const message =
+			error instanceof Error
+				? error.message
+				: (error as unknown as { message?: string }).message ||
+					"Internal Server Error";
+		return fail(-1, message);
 	},
 );
