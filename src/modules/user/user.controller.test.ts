@@ -20,6 +20,9 @@ describe("User Controller", () => {
 		const result = (await response.json()) as BaseResponse<{ token: string }>;
 		expect(response.status).toBe(200);
 		expect(result.code).toBe(0);
+		expect(result.data).toBeDefined();
+		if (!result.data) throw new Error("Missing data in response");
+
 		expect(result.data.token).toBeTypeOf("string");
 
 		// 保存拿到的真实 Token
@@ -62,7 +65,7 @@ describe("User Controller", () => {
 		const result = (await response.json()) as BaseResponse<{ id: string }>;
 		expect(response.status).toBe(200);
 		expect(result.code).toBe(0);
-		// 校验我们刚才拿到的 user 信息是否成功注入
-		expect(result.data.id).toBe("user-123456");
+		expect(result.data).toBeDefined();
+		expect(result.data?.id).toBe("user-123456");
 	});
 });
