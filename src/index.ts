@@ -7,7 +7,7 @@ import { logger, loggerMiddleware } from "./common/middlewares/logger";
 import { errorHandler } from "./common/plugins/error-handler";
 import { userController } from "./modules/user/user.controller";
 
-const app = new Elysia()
+export const app = new Elysia()
 	// 安全与网络层中间件
 	.use(cors())
 	.use(

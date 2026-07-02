@@ -9,10 +9,8 @@ export const logger = pino(
 		: {},
 );
 
-export const loggerMiddleware = new Elysia({ name: "logger" }).onRequest(
-	({ request }) => {
-		const method = request.method;
-		const url = new URL(request.url).pathname;
-		logger.info(`${method} ${url}`);
-	},
-);
+export const loggerMiddleware = new Elysia().onRequest(({ request }) => {
+	const method = request.method;
+	const url = new URL(request.url).pathname;
+	logger.info(`${method} ${url}`);
+});

@@ -11,17 +11,20 @@ export class CustomError extends Error {
 	}
 }
 
-export const errorHandler = new Elysia({ name: "error-handler" }).onError(
-	({ error }) => {
-		logger.error(error);
-		if (error instanceof CustomError) {
-			return fail(error.code, error.message);
-		}
-		const message =
-			error instanceof Error
-				? error.message
-				: (error as unknown as { message?: string }).message ||
-					"Internal Server Error";
-		return fail(-1, message);
-	},
-);
+export const errorHandler = new Elysia().onError(({ error }) => {
+	logger.error(error);
+	if (error instanceof CustomError) {
+		return Response.json(fail(error.code, error.message), {
+			status: error.code,
+		});
+	}
+	const message =
+		error instanceof Error
+			? error.message
+			: (error as unknown as { message?: string }).message ||
+				"Internal Server Error";
+
+	return Response.json(fail(-1, message), {
+		status: 500,
+	});
+});
