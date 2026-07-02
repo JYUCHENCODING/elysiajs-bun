@@ -10,7 +10,27 @@ import { userController } from "./modules/user/user.controller";
 const app = new Elysia()
 	// 安全与网络层中间件
 	.use(cors())
-	.use(helmet())
+	.use(
+		helmet({
+			contentSecurityPolicy: {
+				useDefaults: true,
+				directives: {
+					"script-src": [
+						"'self'",
+						"'unsafe-inline'",
+						"https://cdn.jsdelivr.net",
+					],
+					"style-src": [
+						"'self'",
+						"'unsafe-inline'",
+						"https://fonts.googleapis.com",
+					],
+					"font-src": ["'self'", "https://fonts.gstatic.com", "data:"],
+					"img-src": ["'self'", "data:", "https://validator.swagger.io"],
+				},
+			},
+		}),
+	)
 	.use(rateLimit())
 	// 全局中间件 & 插件
 	.use(loggerMiddleware)
