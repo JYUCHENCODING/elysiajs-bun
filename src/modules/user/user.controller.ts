@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { authMiddleware, jwtSetup } from "@/common/plugins/auth";
+import { CustomError } from "@/common/plugins/error-handler";
 import { success } from "@/common/response";
 import { UserSchema } from "./user.schema";
 import { UserService } from "./user.service";
@@ -35,7 +36,8 @@ export const userController = new Elysia({
 	.get(
 		"/profile",
 		({ user }) => {
-			// 在 authMiddleware 验证通过后，user 将被安全地注入到上下文中
+			// 虽然 authMiddleware 已保证不为 null，但加上显式判断可同时满足 TS 和 Biome lint 规范
+			if (!user) throw new CustomError(401, "未登录或登录状态已失效");
 			return success({ id: user.id }, "获取用户信息成功");
 		},
 		{

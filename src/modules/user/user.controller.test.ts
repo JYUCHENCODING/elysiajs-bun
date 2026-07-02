@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import type { BaseResponse } from "@/common/response";
 import { app } from "@/index";
 
 describe("User Controller", () => {
@@ -16,7 +17,7 @@ describe("User Controller", () => {
 			}),
 		);
 
-		const result = await response.json();
+		const result = (await response.json()) as BaseResponse<{ token: string }>;
 		expect(response.status).toBe(200);
 		expect(result.code).toBe(0);
 		expect(result.data.token).toBeTypeOf("string");
@@ -58,7 +59,7 @@ describe("User Controller", () => {
 			}),
 		);
 
-		const result = await response.json();
+		const result = (await response.json()) as BaseResponse<{ id: string }>;
 		expect(response.status).toBe(200);
 		expect(result.code).toBe(0);
 		// 校验我们刚才拿到的 user 信息是否成功注入
