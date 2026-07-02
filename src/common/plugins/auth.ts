@@ -1,7 +1,8 @@
 import { jwt } from "@elysiajs/jwt";
 import type { Elysia } from "elysia";
 import { ENV } from "../config/env";
-import { CustomError } from "./error-handler";
+import { ErrorCode, ErrorCodeMap } from "../constants/error-codes";
+import { errorHandler } from "./error-handler";
 
 // 注册 JWT 配置，并导出供登录接口生成 Token 时使用
 export const jwtSetup = jwt({
@@ -11,6 +12,7 @@ export const jwtSetup = jwt({
 
 export const authMiddleware = (app: Elysia) =>
 	app
+		.use(errorHandler)
 		.use(jwtSetup)
 		.derive(async ({ jwt, headers }) => {
 			const authorization = headers.authorization;
@@ -28,6 +30,10 @@ export const authMiddleware = (app: Elysia) =>
 		})
 		.onBeforeHandle(({ user }) => {
 			if (!user) {
-				throw new CustomError(401, "未登录或登录状态已失效");
+				const { message, status } = ErrorCodeMap[ErrorCode.UNAUTHORIZED];
+				return Response.json(
+					{ code: ErrorCode.UNAUTHORIZED, message, data: null },
+					{ status },
+				);
 			}
 		});

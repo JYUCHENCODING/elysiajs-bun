@@ -35,8 +35,10 @@ describe("User Controller", () => {
 		);
 
 		const text = await response.text();
-		expect(response.status).toBe(500); // Note: Elysia defaults to 500 for thrown errors without explicit status mapping in global errorHandler when plugin scope differs
-		expect(text).toContain("未登录或登录状态已失效");
+		const result = JSON.parse(text) as BaseResponse<null>;
+		expect(response.status).toBe(401);
+		expect(result.code).toBe(10001); // ErrorCode.UNAUTHORIZED
+		expect(result.message).toContain("未登录");
 	});
 
 	it("should reject access to /profile with an invalid token", async () => {
@@ -48,9 +50,10 @@ describe("User Controller", () => {
 			}),
 		);
 
-		const text = await response.text();
-		expect(response.status).toBe(500);
-		expect(text).toContain("未登录或登录状态已失效");
+		const result = (await response.json()) as BaseResponse<null>;
+		expect(response.status).toBe(401);
+		expect(result.code).toBe(10001);
+		expect(result.message).toContain("未登录");
 	});
 
 	it("should allow access to /profile with a valid token", async () => {
