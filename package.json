@@ -33,7 +33,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx,json}": [
-      "biome check --write --no-errors-on-unmatched"
+      "biome check --write --no-errors-on-unmatched --error-on-warnings"
     ]
   }
 }
