@@ -31,7 +31,13 @@ const app = new Elysia()
 			},
 		}),
 	)
-	.use(rateLimit())
+	.use(
+		rateLimit({
+			duration: 60000, // 1 分钟窗口
+			max: 100, // 允许 100 次请求
+			errorResponse: "请求过于频繁，请稍后再试", // 自定义报错信息
+		}),
+	)
 	// 全局中间件 & 插件
 	.use(loggerMiddleware)
 	.use(errorHandler)
