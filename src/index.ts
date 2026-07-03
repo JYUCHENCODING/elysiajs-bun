@@ -48,6 +48,21 @@ export const app = new Elysia()
 					title: "Bun Elysia API",
 					version: "1.0.0",
 				},
+				components: {
+					securitySchemes: {
+						JwtAuth: {
+							type: "http",
+							scheme: "bearer",
+							bearerFormat: "JWT",
+							description: "请输入 JWT Token",
+						},
+					},
+				},
+				security: [
+					{
+						JwtAuth: [],
+					},
+				],
 			},
 		}),
 	)
