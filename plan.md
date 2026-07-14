@@ -14,7 +14,7 @@
 * **代码格式化与校验 (Linter & Formatter)**: 使用 `Biome` 全面替代 ESLint + Prettier。
 * **Git 提交规范**: 采用 `Husky` + `Commitlint` 强制执行 Angular 规范（如 `feat:`, `fix:`, `chore:`）。
 * **AI 辅助编程规范**:
-* 在项目根目录维护 `.cursorrules` 和 `.clauderc` 等 AI 上下文配置文件。
+* 在项目根目录维护`AGENTS.md`、 `.cursorrules` 和 `.clauderc` 等 AI 上下文配置文件。
 * 建议在 macOS 环境下，通过软链接（`ln -s`）将这些文件接入你的全局 AI 技能目录，确保 Cursor、Claude Code 等 Agent 以及 MCP 工具在生成代码时，严格遵循本项目基于 TypeBox 和 Elysia 插件组合的范式。
 
 
